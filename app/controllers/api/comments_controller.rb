@@ -2,43 +2,40 @@ class Api::CommentsController < ApplicationController
   before_action :set_service
   before_action :set_comment, only: [:show, :update, :destroy]
   def index
-    render json: Model_name.all
+    render json: @service.comment.all
   end
 
   def show
-    @model_name = Model_name.find(params[:id])
-    render json: @model_name
+    @comment = @service.comment.find(params[:id])
+    render json: @comment
   end
 
   def create
-    @model_name = Model_name.new(model_name_params)
-    if @model_name.save
-      render json: @model_name
+    @comment = @service.comment.new(comment_params)
+    if @comment.save
+      render json: @comment
     else
-      render json: { errors: @model_name.errors }, status: :unprocessable_entity
+      render json: { errors: @comment.errors }, status: :unprocessable_entity
     end
   end
 
   def update
-    @model_name = Model_name.find(params[:id])
-    if @model_name.update(model_name_params)
-      render json: @model_name
+    @comment = @service.comment.find(params[:id])
+    if @comment.update(comment_params)
+      render json: @comment
     else
-      render json: { errors: @model_name.errors }, status: :unprocessable_entity
+      render json: { errors: @comment.errors }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @model_name = Model_name.find(params[:id])
-    @model_name.destroy
-    render json: { message: 'model_name deleted' }
-    or
-    Model_name.find(params[:id]).destroy
-    render json: { message: 'model_name deleted' }
+    @comment = @service.comment.find(params[:id])
+    @comment.destroy
+    render json: { message: 'comment deleted' }
   end
 
   private
-  def set_parent
-    @parent = Model_name_of_parent.find(params[:parent_id])
+  def set_comment
+    @service = @service.comment.find(params[:service_id])
   end
 end
