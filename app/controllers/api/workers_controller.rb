@@ -1,44 +1,44 @@
 class Api::WorkersController < ApplicationController
   before_action :set_worker, [:show, :update, :destroy]
   def index
-    render json: Model_name.all
+    render json: Worker.all
   end
 
   def show
-    @model_name = Model_name.find(params[:id])
-    render json: @model_name
+    @worker = Worker.find(params[:id])
+    render json: @worker
   end
 
   def create
-    @model_name = Model_name.new(model_name_params)
-    if @model_name.save
-      render json: @model_name
+    @worker = Worker.new(worker_params)
+    if @worker.save
+      render json: @worker
     else
-      render json: { errors: @model_name.errors }, status: :unprocessable_entity
+      render json: { errors: @worker.errors }, status: :unprocessable_entity
     end
   end
 
   def update
-    @model_name = Model_name.find(params[:id])
-    if @model_name.update(model_name_params)
-      render json: @model_name
+    @worker = Worker.find(params[:id])
+    if @worker.update(worker_params)
+      render json: @worker
     else
-      render json: { errors: @model_name.errors }, status: :unprocessable_entity
+      render json: { errors: @worker.errors }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @model_name = Model_name.find(params[:id])
-    @model_name.destroy
-    render json: { message: 'model_name deleted' }
+    @worker = Worker.find(params[:id])
+    @worker.destroy
+    render json: { message: 'Worker deleted' }
     or
-    Model_name.find(params[:id]).destroy
-    render json: { message: 'model_name deleted' }
+    Worker.find(params[:id]).destroy
+    render json: { message: 'Worker deleted' }
   end
 
   private
-    def model_name_params
-      params.require(:model_name).permit(:attr, :attr2, :everything the table has)
+    def worker_params
+      params.require(:worker).permit(:first_name, :last_name, :image)
     end
 
 end
