@@ -1,4 +1,6 @@
 class Api::CommentsController < ApplicationController
+  before_action :set_service
+  before_action :set_comment, only: [:show, :update, :destroy]
   def index
     render json: Model_name.all
   end
@@ -33,5 +35,10 @@ class Api::CommentsController < ApplicationController
     or
     Model_name.find(params[:id]).destroy
     render json: { message: 'model_name deleted' }
+  end
+
+  private
+  def set_parent
+    @parent = Model_name_of_parent.find(params[:parent_id])
   end
 end

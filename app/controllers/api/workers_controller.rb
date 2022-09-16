@@ -1,4 +1,5 @@
 class Api::WorkersController < ApplicationController
+  before_action :set_worker, [:show, :update, :destroy]
   def index
     render json: Model_name.all
   end
@@ -34,4 +35,10 @@ class Api::WorkersController < ApplicationController
     Model_name.find(params[:id]).destroy
     render json: { message: 'model_name deleted' }
   end
+
+  private
+    def model_name_params
+      params.require(:model_name).permit(:attr, :attr2, :everything the table has)
+    end
+
 end
