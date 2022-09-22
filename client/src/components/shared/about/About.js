@@ -8,4 +8,4 @@ const About = () => (
   </>
 )
 
-export defaut About;
+export default About;
